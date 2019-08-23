@@ -1,0 +1,14 @@
+snc_redis:
+  clients:
+    monolog:
+      type: predis
+      alias: monolog
+      dsn: "redis://redis/0"
+      logging: false
+      options:
+        connection_persistent: true
+
+  monolog: # registers \Monolog\Handler\RedisHandler as @snc_redis.monolog.handler
+    client: monolog # redis client used by monolog to send logs to
+    key: monolog # redis key monolog uses to send logs to
+    formatter: monolog.formatter.logstash
