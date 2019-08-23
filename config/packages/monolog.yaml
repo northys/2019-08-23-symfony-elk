@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    monolog.formatter.logstash:
+        class: Monolog\Formatter\LogstashFormatter
+        autoconfigure: true
+        arguments:
+            $applicationName: app
+            $version: 1
