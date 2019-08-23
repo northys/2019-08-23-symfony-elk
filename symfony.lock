@@ -2,6 +2,9 @@
     "monolog/monolog": {
         "version": "1.24.0"
     },
+    "predis/predis": {
+        "version": "v1.1.1"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -10,6 +13,15 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "snc/redis-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "e9c58bfc414cfb7f06e8e5ae9f589868498f5d6a"
+        }
     },
     "symfony/cache": {
         "version": "v4.3.3"
