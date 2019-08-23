@@ -1,0 +1,39 @@
+version: '3.6'
+
+services:
+  redis:
+    image: redis:5.0.2-alpine
+    ports:
+      - 6379:6379
+
+  elk:
+    image: sebp/elk
+    env_file:
+      - .env
+    volumes:
+      - .docker/elk/etc/logstash/conf.d/03-redis-input.conf:/etc/logstash/conf.d/03-redis-input.conf
+      - .docker/elk/etc/logstash/conf.d/30-output.conf:/etc/logstash/conf.d/30-output.conf
+    ports:
+      - 5601:5601
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  app:
+    image: registry.gitlab.com/bileto/search-api/infra/php-fpm:latest
+    env_file:
+      - .env
+    build:
+      context: .
+    volumes:
+      - ./:/var/www/app
+      - ./var/log:/var/www/app/var/log
+      - ./var/temp:/var/www/app/var/temp
+
+    ports:
+      - 8080:80
+    links:
+      - redis
+    depends_on:
+      - redis
